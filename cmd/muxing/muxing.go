@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/GolangUnited/helloweb/api/helper"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
-
-	"github.com/gorilla/mux"
 )
 
 /**
@@ -19,9 +18,10 @@ main function reads host/port from env just for an example, flavor it following 
 
 // Start /** Starts the web server listener on given host and port.
 func Start(host string, port int) {
-	router := mux.NewRouter()
+	router := helper.NewRouter()
 
 	log.Println(fmt.Printf("Starting API server on %s:%d\n", host, port))
+	//if err := http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), helper.LowerCaseURI(router)); err != nil {
 	if err := http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), router); err != nil {
 		log.Fatal(err)
 	}
@@ -34,5 +34,6 @@ func main() {
 	if err != nil {
 		port = 8081
 	}
+
 	Start(host, port)
 }
